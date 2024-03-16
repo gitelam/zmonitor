@@ -1,7 +1,5 @@
 <script>
 
-    
-
     /**
    * @type {any}
    */
@@ -14,7 +12,7 @@
    
     <div class="flex justify-between mx-4 p-4">
         
-        <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="../images/logo.svg" class="h-8 m-0 p-0" alt="Flowbite Logo">
             
             <span class="self-center text-xl font-light whitespace-nowrap dark:text-white">
@@ -39,11 +37,11 @@
             </form>
             
         <a href="#">
-            <div class="w-full flex justify-end bg-zinc-800 rounded-full hover:bg-blue-500 ">
+            <div class="w-full flex justify-end bg-zinc-800 rounded-full hover:bg-blue-400 active:bg-blue-800">
                 <div class="mx-4 flex items-center text-white text-m ">
                     admin
                 </div>
-                <div class="flex items-center bg-slate-800 rounded-full">
+                <div class="flex items-center bg-gray-600 rounded-full ">
                     <p class="p-2 text-white text-sm font-light">
                         img
                     </p>

@@ -2,7 +2,6 @@
   import Navbar from "../../../lib/app/Navbar.svelte";
   import Icon from "@iconify/svelte";
 
-  let page_name = "home";
 
   let num = 0;
   let dec = 0;
@@ -14,7 +13,7 @@
   }, 500);
 </script>
 
-<Navbar currentPage = {page_name} />
+<Navbar currentPage = {"summary"} />
 
 <div class="internal-body flex place-content-center w-full h-full">
   
