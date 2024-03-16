@@ -1,143 +1,24 @@
 <script>
-    import { goto } from "$app/navigation";
-    import { fade, slide } from "svelte/transition";
-    let isMenuOpen = false;
-    let isSidebarOpen = false;
-    let loading = false;
-  
-    let profilePicture = `https://scontent.ftij3-2.fna.fbcdn.net/v/t39.30808-6/311693255_2099624763574076_8587080800396754404_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeE-oFIUGaD6Iyzvjqffa4IQ5gaAvgJA8JLmBoC-AkDwku2ZmAOlt179B_TAHV6abq5d-F9_3s-uN2Q2Wj8dbgAI&_nc_ohc=IfDfbbq7K5QAX8vJyLw&_nc_ht=scontent.ftij3-2.fna&oh=00_AfBLQYHoiojzEWPoGYVamYpE33uchArC-jUL0leQXUrp5w&oe=6582DF3E`;
-  
-    let userJson = `{
-      "name": "Diego",
-      "lastName": "Beltran",
-      "secondLastName": "Lopez",
-      "career": "Ing. Sistemas",
-      "picture": "/images/dummy.jpg",
-      "dateBirth": "1998-10-10",
-      "controlNum": "20212390",
-      "email": "20212390@tectijuana.edu.mx"
-    }
-    `;
-  
-    let user = JSON.parse(userJson);
-  
-    console.log(user);
-  
-    let completeName = `${user.name} ${user.lastName} ${user.secondLastName}`;
-  
+
+    
+
     /**
-   * @param {string} modalName
+   * @type {any}
    */
-    function showModal(modalName) {
-      const modal = document.getElementById(modalName);
-      // @ts-ignore
-      modal.showModal();
-    }
-  
-    function toggleMenu() {
-      isMenuOpen = !isMenuOpen;
-    }
-  
-    function closeMenu() {
-      isMenuOpen = false;
-    }
-  
-    function toggleSidebar() {
-      isSidebarOpen = !isSidebarOpen;
-    }
-  
-    function closeSidebar() {
-      isSidebarOpen = false;
-    }
-  
-    function logOut() {
-      loading = true;
-      //localStorage.removeItem("token");
-      setTimeout(() => {
-        loading = false;
-        goto("/auth/login");
-      }, 1000);
-    }
-  </script>
-  
-  <!-- <aside
-    class="{isSidebarOpen
-      ? 'translate-x-0'
-      : '-translate-x-full'} fixed top-0 left-0 h-full w-60 bg-gray-200 text-white transition-transform duration-300 ease-in-out"
-  > -->
-    <!-- Sidebar content goes here -->
-    <!-- <div class="p-4">
-      <div class="flex items-center justify-self-center">
-        <button
-          on:click={toggleSidebar}
-          class="p-2 focus:outline-none focus:ring focus:border-blue-300 mr-2"
-        >
-          <svg
-            width="50px"
-            height="50px"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5"
-          >
-            <path
-              d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z"
-              fill="#0F0F0F"
-            />
-          </svg>
-        </button>
-        <img src="/images/logo_ITT.png" alt="logo" class="h-12 w-12" />
-        <span class="text-xl font-bold text-gray-900">Asiscan ITT</span>
-      </div>
-      <div class="mt-10">
-        <a
-          class="flex items-center justify-self-start hover:bg-white hover:text-gray-900 rounded-md py-3 px-2"
-          href="/app/home"
-        >
-          <i class="fa-solid fa-house text-gray-900"></i>
-          <span class="text-xl font-bold text-gray-900 ml-3">Inicio</span>
-        </a>
-        <a
-          class="flex items-center justify-self-start hover:bg-white hover:text-gray-900 rounded-md py-3 px-2"
-          href="/"
-        >
-          <i class="fa-solid fa-house text-gray-900"></i>
-          <span class="text-xl font-bold text-gray-900 ml-3">Reportes</span>
-        </a>
-        <a
-          class="flex items-center justify-self-start hover:bg-white hover:text-gray-900 rounded-md py-3 px-2"
-          href="/"
-        >
-          <i class="fa-solid fa-house text-gray-900"></i>
-          <span class="text-xl font-bold text-gray-900 ml-3">Inbox</span>
-        </a>
-        <a
-          class="flex items-center justify-self-start hover:bg-white hover:text-gray-900 rounded-md py-3 px-2"
-          href="/"
-        >
-          <i class="fa-solid fa-house text-gray-900"></i>
-          <span class="text-xl font-bold text-gray-900 ml-3">Media</span>
-        </a>
-        <a
-          class="flex items-center justify-self-start hover:bg-white hover:text-gray-900 rounded-md py-3 px-2"
-          href="/"
-        >
-          <i class="fa-solid fa-house text-gray-900"></i>
-          <span class="text-xl font-bold text-gray-900 ml-3">Calendar</span>
-        </a>
-      </div>
-    </div>
-  </aside> -->
+     export let currentPage;
+
+</script>
 
 
   <nav class=" dark:bg-black fixed w-full z-20 top-0 start-0 border-b dark:border-zinc-600">
    
-    <div class="flex justify-between mx-auto p-4">
+    <div class="flex justify-between mx-4 p-4">
+        
         <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="../images/logo.svg" class="h-92 m-0 p-0" alt="Flowbite Logo">
+            <img src="../images/logo.svg" class="h-8 m-0 p-0" alt="Flowbite Logo">
             
             <span class="self-center text-xl font-light whitespace-nowrap dark:text-white">
-                summary
+                {currentPage}
             </span>
 
         </a>
@@ -158,9 +39,9 @@
             </form>
             
         <a href="#">
-            <div class="w-full flex justify-end bg-zinc-800 rounded-full ">
-                <div class="mx-4 flex items-center text-white text-sm ">
-                    username
+            <div class="w-full flex justify-end bg-zinc-800 rounded-full hover:bg-blue-500 ">
+                <div class="mx-4 flex items-center text-white text-m ">
+                    admin
                 </div>
                 <div class="flex items-center bg-slate-800 rounded-full">
                     <p class="p-2 text-white text-sm font-light">
