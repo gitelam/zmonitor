@@ -1,32 +1,42 @@
-
 <script>
     import Icon from "@iconify/svelte";
     import Navbar from "../../../lib/app/Navbar.svelte";
+    import axios from 'axios';
 
 
-    let data = {
-        emisor: "",
-        place: "",
-        section: "",
-        description: ""
-    }
+let data = {
+    emisor: "",
+    section: "",
+    place: "",
+    description: "",
+    date_creation: new Date().toISOString()
+}
 
-    async function send_ticket(){
-        console.log(data);
+
+//clear data with vacuum string method
+const clear_data = () => {
+    data.emisor = "";
+    data.section = "";
+    data.place = "";
+    data.description = "";
+}
+
+
+//axios post method
+const create_ticket = async () => {
+    try {
+        const response = await axios.post('http://localhost:8000/create_ticket', data);
+        console.log(response);
         
-        try {
-            const response = await fetch('http://localhost:8000/tickets', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-        } catch (error) {
-            console.error('Error:', error);
+        if(response.status == 201){
+            clear_data();
+            alert("ticket created successfully");
         }
 
+    } catch (error) {
+        console.error(error);
     }
+};
 
 </script>
 
@@ -76,7 +86,7 @@
 
             <div class="buttons flex justify-between mt-4 mx-2">
                 <button class="bg-red-500 text-white p-2 rounded-xl active:bg-red-900 border-none hover:bg-red-600 w-32">Cancel</button>
-                <button on:click={send_ticket} class="bg-blue-400 text-white p-2 rounded-xl active:bg-blue-900 border-none hover:bg-blue-500 w-32">Submit</button>
+                <button on:click={create_ticket} class="bg-blue-400 text-white p-2 rounded-xl active:bg-blue-900 border-none hover:bg-blue-500 w-32">Submit</button>
             </div>
 
         </form>
