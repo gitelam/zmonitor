@@ -6,7 +6,7 @@
     </h1>
     <ul>
         <li>
-            <a href="../auth/login" class="hover:text-blue-300">
+            <a class="hover:text-blue-300">
                 go to login
             </a>
         </li>
@@ -18,6 +18,11 @@
         <li>
             <a href="../app/create-ticket" class="hover:text-blue-300">
                 go to create ticket
+            </a>
+        </li>
+        <li>
+            <a href="../app/TestAnto" class="hover:text-blue-300">
+                go to TestAnto
             </a>
         </li>
     </ul>

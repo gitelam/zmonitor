@@ -14,7 +14,7 @@
    
     <div class="flex justify-between mx-4 p-4">
         
-        <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="../images/logo.svg" class="h-8 m-0 p-0" alt="Flowbite Logo">
             
             <span class="self-center text-xl font-light whitespace-nowrap dark:text-white">
