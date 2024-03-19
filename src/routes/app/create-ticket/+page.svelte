@@ -1,4 +1,5 @@
 <script>
+
     import Icon from "@iconify/svelte";
     import Navbar from "../../../lib/app/Navbar.svelte";
     import axios from 'axios';
@@ -25,6 +26,7 @@ const clear_data = () => {
 //axios post method
 const create_ticket = async () => {
     try {
+
         const response = await axios.post('http://localhost:8000/create_ticket', data);
         console.log(response);
         

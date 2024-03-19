@@ -1,4 +1,4 @@
-<script>
+p<script>
   import Navbar from "../../../lib/app/Navbar.svelte";
   import Icon from "@iconify/svelte";
 
@@ -9,8 +9,8 @@
   import { onMount } from "svelte";
 
   // svelte onmount method
-  onMount(() => {
-    get_data();
+  onMount(async () => {
+    await get_data();
   });
 
   let num = 0;
@@ -23,7 +23,10 @@
   }, 500);
 
   //unsolved tickets
-  let unsolved_tickets = {};
+  /**
+   * @type {{ [s: string]: any; } | ArrayLike<any>}
+   */
+  let unsolved_tickets = [];
 
   //axios get method
   const get_data = async () => {
@@ -47,26 +50,136 @@
 <Navbar currentPage={"summary"} />
 
 <div class="internal-body flex place-content-center w-full h-full">
-  <div class="board w-full mx-8 mt-24">
-    <div class="w-full h-96 p-4 mr-8 bg-zinc-800 rounded-xl">
+  <div class="flex board w-full mx-8 mt-24">
+    
+    
+    
+    <div class="w-full h-auto p-4 mr-8 bg-zinc-800 rounded-xl">
       <h1 class="text-white text-lg font-bold">system monitor</h1>
-      <div class="charts">
-        <p class="text-white">
-          download speed: <span id="randomNumber">{num}.{dec}{num}</span>
-          kbps
-        </p>
+
+      <div class="flex space-x-4">
+        
+        <div class="flex w-full ">
+        
+          <div class="flex-col space-y-2 w-full">
+
+            <div class="flex  py-4 space-x-4 ">
+              <div class="p-8 w-full h-52 bg-zinc-950 text-white rounded-2xl">
+                this is a chart
+              </div>
+              <div class="p-8 w-full h-52 bg-zinc-950 text-white rounded-2xl">
+                this is a chart
+              </div>
+            </div>
+  
+            <div  class="flex py-4 space-x-4 ">
+              <div class="p-8 w-full h-52 bg-zinc-950 text-white rounded-2xl">
+                this is a chart
+              </div>
+              <div class="p-8 w-full h-52 bg-zinc-950 text-white rounded-2xl">
+                this is a chart
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        
+
+
+        <div class="p-4 w-8/12 bg-zinc-600 rounded-2xl">
+         <div class="flex justify-between items-center">
+          <h2 class="text-white font-bold">
+            Users in net
+         </h2>
+         <a href="#" class="font-bold rounded-xl p-2 text-blue-300 hover:bg-zinc-600">
+          {"see all >"}
+         </a>
+         </div>
+
+         <div class="list">
+          
+          <div class="p-4 item-list rounded-2xl bg-zinc-800 flex ">
+
+            <div class="icon mr-2">
+              <Icon icon="mdi:circle" width="24" height="24" color="lime" />
+            </div>
+
+
+              <div class="flex w-full flex-col space-y-4">
+                
+                <div>
+                  <div class="flex w-full ">
+    
+                    <div class="w-full">
+                      <p class="text-white">DESKTOP-HBKSKL2</p>
+                    </div>
+      
+                    <div class="flex w-full justify-between">
+                        <div class="ip">
+                          <p class="text-white">ipv4</p>
+                        </div>
+                    </div>
+  
+                  </div>
+  
+                  <div class="flex w-full ">
+                    <div class="w-full">
+                      <p class="text-white">d9:2b:19:72:8f:e8</p>
+                    </div>
+      
+                    <div class="flex w-full justify-between">
+                        <div class="ip">
+                          <p class="text-white">172.43.32.02.1</p>
+                        </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                
+                <div class="speed flex flex-col ">
+                  <div class="up">
+                    <p class="text-gray-400 font-light">
+                      up: 1.2 mb/s
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-gray-400 font-light">
+                      down: 2.3 mb/s
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+              
+              
+
+
+          </div>
+
+         </div>
+
+        </div>
+
       </div>
+
+      
+
+
     </div>
 
-    <div class="ticket-section mt-4 flex">
+    <div class="ticket-section flex">
       <!--do iterable lis with svelte with the unsolved_tickets set-->
-      <div class="unsolved-tickets w-96 h-96 p-4 mr-4 bg-zinc-800 rounded-xl">
-        <h1 class="text-white text-lg font-bold">unsolved tickets</h1>
-        <div class="mt-2 overflow-auto max-h-92">
-          {#each Object.values(unsolved_tickets) as ticket}
+      <div class="unsolved-tickets w-96 h-auto p-4 mr-4 bg-zinc-800 rounded-xl">
+        <h2 class="text-white text-lg font-bold">new tickets</h2>
+        <div class="mt-2 overflow-auto max-h-80">
+          {#each Object.values(unsolved_tickets) as ticket, index}
             <a href="#">
               <div
-                class="{ticket.id == 7 ? 'item-list flex items-center border-b p-2 hover:bg-slate-800' : 'item-list flex items-center border-b p-2 hover:bg-slate-800'}"
+                class={index == Object.values(unsolved_tickets).length - 1
+                  ? "item-list flex items-center p-2 hover:bg-slate-800"
+                  : "item-list flex items-center border-b p-2 hover:bg-slate-800"}
               >
                 <p class="text-white m-3">
                   <Icon
@@ -75,7 +188,6 @@
                     height="38"
                   />
                 </p>
-
                 <div class="w-full">
                   <p
                     class="text-white
@@ -111,104 +223,11 @@
         </div>
       </div>
 
-      <!-- <div class="unsolved-tickets w-96 h-96 p-4 mr-4 bg-zinc-800 rounded-xl">
-        <h1 class="text-white text-lg font-bold">recent tickets</h1>
+ 
 
-        <div class="mt-2">
-          <a href="#">
-            <div
-              class="item-list flex items-center border-b p-2 hover:bg-slate-800"
-            >
-              <p class="text-white m-3">
-                <Icon
-                  icon="material-symbols-light:warning-outline-rounded"
-                  width="38"
-                  height="38"
-                />
-              </p>
 
-              <div class="w-full">
-                <p class="text-white mx-2 font-bold">0001 - LB1S SISTEMAS</p>
-                <p class="text-white mx-2 text-sm font-light">feb 23, 2023</p>
-              </div>
-
-              <p class="text-white m-3">
-                <Icon
-                  icon="material-symbols-light:keyboard-arrow-right"
-                  width="38"
-                  height="38"
-                />
-              </p>
-            </div>
-          </a>
-        </div>
-      </div> -->
-
-      <div class="standby-tickets mr-4 h-96 p-4 bg-zinc-800 rounded-xl">
-        <h1 class="text-white text-lg font-bold">stanby tickets</h1>
-
-        <div class="mt-2">
-          <a href="#">
-            <div
-              class="item-list flex items-center border-b p-2 hover:bg-slate-800"
-            >
-              <p class="text-white m-3">
-                <Icon
-                  icon="material-symbols-light:browse-gallery-outline"
-                  width="38"
-                  height="38"
-                />
-              </p>
-
-              <div class="w-full">
-                <p class="text-white mx-2 font-bold">0001 - LB1S SISTEMAS</p>
-                <p class="text-white mx-2 text-sm font-light">feb 23, 2023</p>
-              </div>
-
-              <p class="text-white m-3">
-                <Icon
-                  icon="material-symbols-light:keyboard-arrow-right"
-                  width="38"
-                  height="38"
-                />
-              </p>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <div class="standby-tickets h-96 p-4 bg-zinc-800 rounded-xl">
-        <h1 class="text-white text-lg font-bold">solved tickets</h1>
-
-        <div class="mt-2">
-          <a href="#">
-            <div
-              class="item-list flex items-center border-b p-2 hover:bg-slate-800"
-            >
-              <p class="text-white m-3">
-                <Icon
-                  icon="material-symbols-light:check"
-                  width="38"
-                  height="38"
-                />
-              </p>
-
-              <div class="w-full">
-                <p class="text-white mx-2 font-bold">0001 - LB1S SISTEMAS</p>
-                <p class="text-white mx-2 text-sm font-light">feb 23, 2023</p>
-              </div>
-
-              <p class="text-white m-3">
-                <Icon
-                  icon="material-symbols-light:keyboard-arrow-right"
-                  width="38"
-                  height="38"
-                />
-              </p>
-            </div>
-          </a>
-        </div>
-      </div>
     </div>
+
+    
   </div>
 </div>
