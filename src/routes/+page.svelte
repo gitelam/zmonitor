@@ -25,5 +25,15 @@
                 go to create ticket
             </a>
         </li>
+        <li>
+            <a href="../app/TestAnto" class="hover:text-blue-300">
+                go to TestAnto
+            </a>
+        </li>
+        <li>
+            <a href="../auth/login" class="hover:text-blue-300">
+                go to login
+            </a>
+        </li>
     </ul>
 </div>
