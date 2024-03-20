@@ -25,6 +25,12 @@ const clear_data = () => {
 
 //axios post method
 const create_ticket = async () => {
+
+    if(data.emisor == "" || data.section == "" || data.place == "" || data.description == ""){
+        alert("please fill all the fields");
+        return;
+    }
+
     try {
 
         const response = await axios.post('http://localhost:8000/create_ticket', data);

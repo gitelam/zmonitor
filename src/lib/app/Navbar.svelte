@@ -1,9 +1,40 @@
 <script>
 
+    //import icon from iconify
+    import Icon from "@iconify/svelte";
+
+    import Dialog from './Dialog.svelte';
+
     /**
    * @type {any}
    */
-     export let currentPage;
+    export let currentPage;
+
+    /**
+   * @type {any}
+   */
+
+    let notifications = 1;
+
+
+    let isDropdownOpen = false // default state (dropdown close)
+
+  // @ts-ignore
+  const handleDropdownClick = () => {
+
+    isDropdownOpen = !isDropdownOpen // togle state on click
+    notifications = 0;
+
+  }
+
+  // @ts-ignore
+  const handleDropdownFocusLoss = ({ relatedTarget, currentTarget }) => {
+    
+    // use "focusout" event to ensure that we can close the dropdown when clicking outside or when we leave the dropdown with the "Tab" button
+    if (relatedTarget instanceof HTMLElement && currentTarget.contains(relatedTarget)) return // check if the new focus target doesn't present in the dropdown tree (exclude ul\li padding area because relatedTarget, in this case, will be null) 
+    isDropdownOpen = false;
+    
+  }
 
 </script>
 
@@ -21,9 +52,127 @@
 
         </a>
    
-   
+        {#if currentPage == "summary"}
+
+            <!-- <div class="flex justify-end w-full">
+                <button on:click={()=>dialog.showModal()} class="flex text-white  font-medium space-x-2 bg-blue-300 rounded-2xl p-1">
+                
+                    <Icon icon="mdi:bell" width="24" height="24" />
+                
+                    <div class="border-l px-2">
+                        notifications
+                    </div>
+
+                </button>
+            </div>
+
+            <Dialog bind:dialog on:close={()=>console.log('closed')}>
+                <div>
+                    i am the dialog
+                </div>
+            </Dialog> -->
+
+            <div class="flex justify-end w-full space-y-8 ">
+               
+                <div class="flex dropdown items-center" on:focusout={handleDropdownFocusLoss}>
+                    
+                    <!-- {#if notifications == 1}
+                    
+                    <div class="flex items-center px-2 outline outline-red-500 rounded-xl border-solid border-1 border-red-200">
+                        <div class="">
+                            <Icon icon="mdi:circle" width="12" height="12" color="red" />
+                        </div>
+                        <button class="btn m-1 " on:click={handleDropdownClick} >
+                       
+                            {#if isDropdownOpen}
+                                <Icon icon="mdi:bell" width="24" height="24" color="white"/>
+                            {:else}
+                                <Icon icon="mdi:bell" width="24" height="24" color="grey"/>
+                            {/if}
+    
+                        </button>     
+
+                    </div>
+                    {/if} -->
+                    
+                    <div class="flex items-center px-2  rounded-xl ">
+                        <div class="">
+                            <Icon icon="mdi:circle" width="12" height="12" color="red" />
+                        </div>
+                        <button class="btn m-1 " on:click={handleDropdownClick} >
+                       
+                            {#if isDropdownOpen}
+                                <Icon icon="mdi:bell" width="24" height="24" color="white"/>
+                            {:else}
+                                <Icon icon="mdi:bell" width="24" height="24" color="grey"/>
+                            {/if}
+    
+                        </button>  
+                           
+                    </div>
+
+                    
+                </div>
+
+               
+                <div class="absolute dropdown-content menu  rounded-box " style:visibility={isDropdownOpen ? 'visible' : 'hidden'}>
+                    <div class="w-full p-2 bg-black rounded-xl text-white outline-1 outline-double outline-zinc-500 ">
+                        
+
+                       <div class=" space-y-4 ">
+                            <h2 class="font-bold">
+                                Notifications
+                            </h2>
+
+                            <div class="list">
+
+                                <a href="#">
+                                    <div class="item-list space-x-4 hover:bg-zinc-700 rounded-xl">
+                                    
+                                        <div class="flex body  border-zinc-600 p-2 justify-center items-center h-full space-x-4">
+    
+                                            <div class="flex">
+                                                <Icon icon="mdi:check-all" width="24" height="24" />
+                                            </div>
+    
+                                            <div class="space-y-2">
+                                                <p class="font-bold">01 - Lab PC 2039</p>
+                                                <div>
+                                                    checked by John on
+                                                    <div class="italic">
+                                                        Sat Mar 16 2024 9:46:28 PM
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="space-y-2">
+                                                <p class="font-bold"></p>
+                                                <Icon icon="mdi:keyboard-arrow-right" width="24" height="24" />
+                                            </div>
+    
+                                        </div>
+    
+                                    </div>
+                                </a>
+                               
+                                
+
+
+                            </div>
+                       </div>
+
+                    </div>
+                 </div>
+            </div>
+
+           
+
+        {/if}
+
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             
+
+
             <form class="w-80 h-0 mx-8 p-0">   
                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div class="relative">
@@ -36,6 +185,8 @@
                 </div>
             </form>
             
+           
+
         <a href="#">
             <div class="w-full flex justify-end bg-zinc-800 rounded-full hover:bg-blue-400 active:bg-blue-800">
                 <div class="mx-4 flex items-center text-white text-m ">
