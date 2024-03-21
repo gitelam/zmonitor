@@ -18,7 +18,34 @@
     data.place = "";
     data.description = "";
   };
+}
 
+const validar_espacios = () => {
+    if(data.emisor.replaceAll(" ","")==="" ||  data.emisor===("")){
+        alert("Campo nombre no valido");
+        throw new Error("Campo Nombre no valido");
+    }else if(data.section.replaceAll(" ","")==="" ||  data.section===("")){
+        alert("Campo nombre no valido");
+        throw new Error("Campo nombre no valido");
+    }else if(data.place.replaceAll(" ","")==="" ||  data.place===("")){
+        alert("Campo departamento no valido");
+        throw new Error("Campo departamento no valido");
+    }else if(data.description.replaceAll(" ","")==="" ||  data.description===("")){
+        alert("Campo descripción no valido");
+        throw new Error("Campo descripción no valido");
+    }else if(data.description.length<50){
+        alert("Campo descripción muy corto");
+        throw new Error("Campo descripción muy corto");
+    }
+}
+
+//axios post method
+const create_ticket = async () => {
+    validar_espacios();
+    /*if(data.emisor == "" || data.section == "" || data.place == "" || data.description == ""){
+        alert("please fill all the fields");
+        return;
+    }*/
   //axios post method
   const create_ticket = async () => {
     if (
