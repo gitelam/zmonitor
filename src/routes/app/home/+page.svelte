@@ -65,6 +65,7 @@
   }
 
 
+
   //axios get method
   const get_data = async () => {
     try {
@@ -82,13 +83,13 @@
       console.error(error);
     }
   };
+
+
+
+
 </script>
 
 <Navbar currentPage={"summary"} />
-
-<div class="  ">
-
-</div>
 
 <div class="internal-body flex place-content-center mt-20 mx-4">
   <div class="flex flex-col board w-full">
@@ -139,6 +140,9 @@
                     99+
                   </div>
                   <a
+                    on:click={() => {
+                      goto("/app/machine-list");
+                    }}
                     href="#"
                     class="flex justify-center items-center font-bold rounded-xl text-blue-300 hover:bg-gray-500 active:bg-blue-500"
                   >
@@ -159,7 +163,7 @@
                   
                   <!-- svelte-ignore a11y-no-static-element-interactions -->
                   <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-                  <button on:click={get_system_info} class=" focus:bg-slate-700 focus:ring focus:ring-gray-300 p-2 flex items-center item-list rounded-2xl bg-zinc-800  hover:bg-zinc-950  active:bg-zinc-500 justify-between">
+                  <button on:click={get_system_info} class="w-full justify-between focus:bg-slate-700 focus:ring focus:ring-gray-300 p-2 flex items-center item-list rounded-2xl bg-zinc-800  hover:bg-zinc-950  active:bg-zinc-500  space-x-5">
                     <div class="icon  hover:text-red">
                       <Icon
                         icon="mdi:circle"
@@ -168,22 +172,23 @@
                         color="lime"
                       />
                     </div>
-                          
+                    
+                    <div class="flex w-full justify-between items-center">
+                      <div class="overflow-x-auto max-w-44">
+                        <p class="text-white truncate">DESKTOP-HBKSKL2</p>
+                      </div>
 
-                            <div class="">
-                              <p class="text-white">DESKTOP-HBKSKL2</p>
-                            </div>
+                      <div class=" text-gray-400">
+                         up: {num}2.{dec} mb/s 
+                      </div>
 
-                            <div class=" text-gray-400">
-                               up: 331.2 mb/s 
-                            </div>
-
-                            <div class=" text-gray-400">
-                              down: 331.2 mb/s 
-                            </div>
+                      <div class=" text-gray-400">
+                        down: {dec}4.{num} mb/s  
+                      </div>
+                    </div>
                             
   
-                    <div class="flex  text-white">
+                    <div class=" text-white">
                       <Icon
                       icon="material-symbols-light:keyboard-arrow-right"
                       width="42"
@@ -231,10 +236,9 @@
           </div>
         </div>
 
-        <div class="flex flex-col"></div>
       </div>
 
-      <div class="h-full  ticket-section">
+      <div class="ticket-section">
         <!--do iterable lis with svelte with the unsolved_tickets set-->
         <div class="unsolved-tickets w-96 p-4 bg-zinc-800 rounded-xl">
           

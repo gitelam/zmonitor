@@ -18,7 +18,6 @@
     data.place = "";
     data.description = "";
   };
-}
 
 const validar_espacios = () => {
     if(data.emisor.replaceAll(" ","")==="" ||  data.emisor===("")){
@@ -42,10 +41,7 @@ const validar_espacios = () => {
 //axios post method
 const create_ticket = async () => {
     validar_espacios();
-    /*if(data.emisor == "" || data.section == "" || data.place == "" || data.description == ""){
-        alert("please fill all the fields");
-        return;
-    }*/
+
   //axios post method
   const create_ticket = async () => {
     if (
@@ -72,7 +68,11 @@ const create_ticket = async () => {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  
   };
+
 </script>
 
 <Navbar currentPage={"tickets"} />

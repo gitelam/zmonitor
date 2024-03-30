@@ -49,7 +49,7 @@
       </span>
     </a>
 
-    {#if currentPage == "summary"}
+    {#if currentPage == "summary" || currentPage == "dashboard"}
       <!-- <div class="flex justify-end w-full">
                 <button on:click={()=>dialog.showModal()} class="flex text-white  font-medium space-x-2 bg-blue-300 rounded-2xl p-1">
                 
@@ -98,7 +98,7 @@
             </div>
             <button class="btn mx-1" on:click={handleDropdownClick}>
               {#if isDropdownOpen}
-                <div class="relative z-10 border-zinc-500 bg-black">
+                <div class="relative z-10  ">
                   <Icon icon="mdi:bell" width="24" height="24" color="white" />
                 </div>
               {:else}
@@ -113,7 +113,7 @@
           style:visibility={isDropdownOpen ? "visible" : "hidden"}
         >
           <div
-            class="w-full h-full p-2 bg-black rounded-xl text-white outline-1 outline-double outline-zinc-500"
+            class="w-full h-full p-2 bg-zinc-950 rounded-md text-white outline-1 outline-double outline-zinc-500"
           >
             <div class=" space-y-4">
               <h2 class="font-bold">Notifications</h2>
@@ -128,9 +128,9 @@
                         <Icon icon="mdi:check-all" width="24" height="24" />
                       </div>
 
-                      <div class="space-y-2">
-                        <p class="font-bold">01 - Lab PC 2039</p>
-                        <div>
+                      <div class="space-y-2 ">
+                        <p>01 - Lab PC 2039</p>
+                        <div class="text-gray-400">
                           checked by John on
                           <div class="italic">Sat Mar 16 2024 9:46:28 PM</div>
                         </div>

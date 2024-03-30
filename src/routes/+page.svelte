@@ -6,6 +6,11 @@
     </h1>
     <ul>
         <li>
+            <a href="/app/machine-list" class="hover:text-blue-300">
+                go to machine list
+            </a>
+        </li>
+        <li>
             <a href="/app/test" class="hover:text-blue-300">
                 go to test
             </a>
