@@ -2,7 +2,7 @@
   import LinePlot from "../../../lib/charts/test/LinePlot.svelte";
   import * as d3 from "d3";
 
-  let data = d3.ticks(0, 0, 0).map(Math.sin);
+  let data = d3.ticks().map(Math.sin);
 
   //set interval for live chart
   setInterval(() => {
@@ -28,7 +28,7 @@
   //svelte onmount import
   import { onMount } from "svelte";
 
-  // svelte onmount method
+  //svelte onmount method
   onMount(async () => {
     await get_data();
   });
@@ -145,7 +145,7 @@
             <!-- svelte-ignore a11y-mouse-events-have-key-events -->
             <button
               on:click={get_system_info}
-              class="w-full pl-6 focus:bg-slate-700 focus:border-1 focus:border-blue-700 p-2 flex items-center hover:bg-zinc-950 active:bg-zinc-500"
+              class="w-full pl-6 focus:bg-slate-700 focus:border-1 focus:border-blue-700 p-2 flex items-center hover:bg-slate-800 active:bg-zinc-500"
             >
               <div class="icon hover:text-red">
                 <Icon icon="mdi:circle" width="12" height="12" color="lime" />
@@ -290,11 +290,11 @@
         <div class="px-6 pt-3">
           <div class="flex justify-between">
             <h2>System info</h2>
-            <button
+            <!-- <button
               class="text-blue-300 hover:text-blue-600 active:text-purple-500"
             >
               view all
-            </button>
+            </button> -->
           </div>
 
           <div class="flex flex-col space-y-4 my-4">
@@ -315,6 +315,7 @@
             </div>
 
             <div class="flex space-x-8 rounded-b-xl text-white">
+              
               {#each Object.entries(system_info) as [index, value]}
                 <div>
                   <div class="flex flex-col">
@@ -328,6 +329,8 @@
                   </div>
                 </div>
               {/each}
+
+
             </div>
           </div>
         </div>

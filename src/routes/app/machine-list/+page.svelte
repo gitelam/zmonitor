@@ -33,7 +33,7 @@
 
   //set interval for live chart
   setInterval(() => {
-    data = data.slice(-200).concat(0.5);
+    data = data.slice(-50).concat(0.5);
   }, 500);
 
   function get_system_info() {
@@ -129,7 +129,6 @@
               on:click={get_system_info}
               class="w-full pl-6 focus:bg-slate-700 focus:border-1 focus:border-blue-700 p-2 flex items-center hover:bg-zinc-950 active:bg-zinc-500"
             >
-              
               <div class="icon hover:text-red">
                 <Icon icon="mdi:circle" width="12" height="12" color="lime" />
               </div>
@@ -147,10 +146,8 @@
                   height="42"
                 />
               </div>
-
             </button>
           {/each}
-
         </div>
       </div>
     </div>
@@ -235,7 +232,6 @@
 
           <button class="rounded-md hover:bg-zinc-700 p-2">
             <div class="alarm-item flex items-center">
-             
               <div class="flex flex-col justify-center hover:text-red">
                 <Icon
                   icon="material-symbols-light:memory-sharp"
@@ -244,7 +240,7 @@
                 />
                 <div>CPU</div>
               </div>
-              
+
               <div class="flex flex-col w-full items-start mx-4">
                 <div class="overflow-x-auto max-w-52">
                   <p class="text-white truncate">CPU trothling warning</p>
@@ -253,39 +249,171 @@
                 <div class=" text-gray-400">trigger value: 20 mb/s</div>
                 <div class=" text-gray-400">current value: 10 mb/s</div>
               </div>
-
             </div>
           </button>
         </div>
 
-        <div class="w-full h-full bg-zinc-800 p-4 space-y-4">
+        <div class="w-full h-full bg-zinc-800 p-4 space-y-4 overflow-auto">
           <div class="flex metric">
             <div class="w-4/12 rounded-l-md bg-zinc-950 p-2">
               <div class="flex h-full flex-col">
-                
-
                 <div class="flex items-center">
                   <Icon
-                  icon="material-symbols-light:memory-alt-outline"
-                  width="32"
-                  height="32"
-                />
-                <div>RAM</div>
+                    icon="material-symbols-light:memory-alt-outline"
+                    width="32"
+                    height="32"
+                  />
+                  <div>RAM</div>
                 </div>
                 <div class="text-zinc-400">
                   <div>using: 3992 MB</div>
-                <div>free: 6992 MB</div>
-                <div>total: 9992 MB</div>
+                  <div>free: 6992 MB</div>
+                  <div>total: 9992 MB</div>
                 </div>
-                
+              </div>
+            </div>
+
+            <div class="w-full rounded-r-md bg-zinc-900 p-2">
+              <LinePlot {data} height="150" width="450" line_color="yellow" />
+            </div>
+          </div>
+          
+          <div class="flex metric">
+            <div class="w-4/12 rounded-l-md bg-zinc-950 p-2">
+              <div class="flex h-full flex-col">
+                <div class="flex items-center">
+                  <Icon
+                  icon="material-symbols-light:memory-sharp"
+                  width="32"
+                  height="32"
+                />
+                  <div>CPU</div>
+                </div>
+                <div class="text-zinc-400">
+                  <div>Max: 2601 Mhz</div>
+                  <div>Log. Cores: 8</div>
+                  <div>Phy. Cores: 4</div>
+                  <div>Use: 32%</div>
+                </div>
               </div>
             </div>
             
             <div class="w-full rounded-r-md bg-zinc-900 p-2">
-              <LinePlot {data} height="200" width="450" line_color="yellow" />
+              <LinePlot {data} height="150" width="450" line_color="cyan" path_fill_color="blue" />
             </div>
 
           </div>
+
+
+          <div class="flex metric">
+            <div class="w-4/12 rounded-l-md bg-zinc-950 p-2">
+              <div class="flex h-full flex-col">
+                <div class="flex items-center">
+                  <Icon icon="mdi:exchange" width="32" height="32" />
+                  <div>DATA send</div>
+                </div>
+                <div class="text-zinc-400 h-full flex items-center ">
+                 
+                  <div class="space-y-4">
+                    <div class="flex items-center">
+                      <Icon icon="mdi:checkbox-blank-circle" color="orange" width="12" height="12" />
+                      <div class="mx-2">
+                        in: 2.6 Mb/s
+                      </div>
+                    </div>
+                    <div class="flex items-center">
+                      <Icon icon="mdi:checkbox-blank-circle" color="red" width="12" height="12" />
+                      <div class="mx-2">
+                        out: 2.6 Mb/s
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex w-full rounded-r-md bg-zinc-900 p-2">
+              <LinePlot {data} height="150" width="225" line_color="orange" path_fill_color="orange" />
+              <LinePlot {data} height="150" width="225" line_color="red" path_fill_color="red" />
+            </div>
+
+          </div>
+
+          <div class="flex metric">
+            <div class="w-4/12 rounded-l-md bg-zinc-950 p-2">
+              <div class="flex h-full flex-col">
+                <div class="flex items-center">
+                  <Icon icon="mdi:chart-line-variant" width="24" height="24" />
+                  <div>Bandwidth</div>
+                </div>
+                <div class="text-zinc-400 h-full flex items-center ">
+                 
+                  <div class="space-y-4">
+                    <div class="flex items-center">
+                      <Icon icon="mdi:checkbox-blank-circle" color="lime" width="12" height="12" />
+                      <div class="mx-2">
+                        in: 2.6 Mb/s
+                      </div>
+                    </div>
+                    <div class="flex items-center">
+                      <Icon icon="mdi:checkbox-blank-circle" color="cyan" width="12" height="12" />
+                      <div class="mx-2">
+                        out: 2.6 Mb/s
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex w-full rounded-r-md bg-zinc-900 p-2">
+              <LinePlot {data} height="150" width="225" line_color="lime" path_fill_color="lime" />
+              <LinePlot {data} height="150" width="225" line_color="cyan" path_fill_color="cyan" />
+            </div>
+
+          </div>
+
+
+
+          <div class="flex metric">
+            <div class="w-4/12 rounded-l-md bg-zinc-950 p-2">
+              <div class="flex h-full flex-col">
+                <div class="flex items-center">
+                  <Icon icon="material-symbols-light:package-2-outline" width="24" height="24" />
+                  <div>Packages</div>
+                </div>
+                <div class="text-zinc-400 h-full flex items-center ">
+                 
+                  <div class="space-y-4">
+                    <div class="flex items-center">
+                      <Icon icon="mdi:checkbox-blank-circle" color="purple" width="12" height="12" />
+                      <div class="mx-2">
+                        in: 15
+                      </div>
+                    </div>
+                    <div class="flex items-center">
+                      <Icon icon="mdi:checkbox-blank-circle" color="yellow" width="12" height="12" />
+                      <div class="mx-2">
+                        out: 12
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex w-full rounded-r-md bg-zinc-900 p-2">
+              <LinePlot {data} height="150" width="225" line_color="purple" path_fill_color="purple" />
+              <LinePlot {data} height="150" width="225" line_color="yellow" path_fill_color="yellow" />
+            </div>
+
+          </div>
+
+
+
         </div>
       </div>
     </div>
@@ -332,10 +460,11 @@
           name="cars"
           class="bg-zinc-800 rounded-md outline-none p-2"
         >
-          <option value="volvo">RAM</option>
-          <option value="saab">CPU</option>
-          <option value="fiat">DATA SEND</option>
-          <option value="audi">DATA RECEIVED</option>
+          <option>RAM</option>
+          <option>CPU</option>
+          <option>DATA SEND</option>
+          <option>DATA RECEIVED</option>
+          
         </select>
       </div>
 

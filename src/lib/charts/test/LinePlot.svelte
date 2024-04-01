@@ -19,13 +19,15 @@
   export let data;
   export let width = 300;
   export let height = 150;
-  export let marginTop = 20;
-  export let marginRight = 20;
+  export let marginTop = 10;
+  export let marginRight = 10;
   export let marginBottom = 20;
-  export let marginLeft = 25;
+  export let marginLeft = 30;
 
   export let path_fill_color = "green";
   export let line_color = "green";
+
+  export let y_up_domain = 5;
 
   /**
    * @type {any}
@@ -43,7 +45,7 @@
 
   $: y = d3
     .scaleLinear(d3.extent(data), [height - marginBottom, marginTop])
-    .domain([0, 1]);
+    .domain([0, y_up_domain]);
 
   $: line = d3.line((/** @type {any} */ d, /** @type {any} */ i) => x(i), y);
 
@@ -57,31 +59,31 @@
                 .y0(height - marginBottom)
                 .y1((/** @type {any} */ d) => y(d));
 
-
 </script>
 
 <div
   class="align-middle items-center justify-center border-zinc-600 border-1 text-white "
 >
-  <svg {width} {height}>
+  <svg {width} {height} >
 
-    <g bind:this={gx} transform="translate(0,{height - marginBottom})" />
-    <g bind:this={gy} transform="translate({marginLeft},0)" />
+    <g opacity={0.6} bind:this={gx} transform="translate(0,{height - marginBottom})" />
+    <g opacity={0.6} bind:this={gy} transform="translate({marginLeft},0)" />
 
     <path fill={path_fill_color} opacity="0.2" d={area(data)} />
     <path
       fill=none
-      opacity={1}
+      opacity={0.3}
       stroke={line_color}
-      stroke-width="0.5"
+      stroke-width="1"
       d={line(data)}
     />
 
-    <g fill="purple" stroke="currentColor" stroke-width="0">
+    <!-- <g fill="purple" stroke="currentColor" stroke-width="0">
       {#each data as d, i}
-        <circle cx={x(i)} cy={y(d)} r="1.5" />
+        <circle cx={x(i)} cy={y(d)} r="1" />
       {/each}
-    </g>
+    </g> -->
+
   </svg>
 
   {#if type == "show_data"}
@@ -94,7 +96,3 @@
   {/if}
 
 </div>
-
-
-
-
