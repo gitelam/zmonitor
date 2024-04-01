@@ -6,18 +6,40 @@
   import LinePlot from "../../../lib/charts/test/LinePlot.svelte";
   import * as d3 from "d3";
 
+  const user ={
+    "name": "John Ipsum Dereee Dou",
+    "email": "johnipsumdereedou@gmail.com",
+    "role": "admin",
+  };
+
+  let userJson = JSON.parse(JSON.stringify(user));
 
   let isEdit = false;
   let readonly = "readonly";
+  let disabled = "disabled";
 
   function edit(){
     isEdit = !isEdit;
     readonly = "";
+    disabled = "";
+  }
+
+  function noEdit(){
+    isEdit = false;
+    readonly = "readonly";
+    disabled = "disabled";
+  }
+
+  function cancel(){
+    noEdit();
+    userJson = JSON.parse(JSON.stringify(user));
+    console.log(user)
+    console.log(userJson)
   }
 
   function save(){
-    isEdit = !isEdit;
-    readonly = "readonly";
+    noEdit();
+    //send...
   }
 
   function goback(){
@@ -72,7 +94,7 @@
               class="w-full pl-6 focus:bg-slate-700 focus:border-1 focus:border-blue-700 p-2 flex items-center hover:bg-zinc-950 active:bg-zinc-500"
             >
               <div class="icon text-zinc-400">
-                <Icon icon="ph:user" width="24" height="24" />
+                <Icon icon="ph:user" width="24" height="24"  />
               </div>
 
               <div class="flex flex-col w-full items-start mx-4">
@@ -102,55 +124,78 @@
             
 
             <div class="flex flex-col">
-              <div class="flex justify-between">USER INFO
+              
+
+              <div class="flex justify-between">
+                {#if isEdit}
+                EDIT
+                {/if}
+                USER INFO
                 
-                <button on:click={edit} class="text-blue-400 rounded-full hover:bg-slate-900 p-2">
-                  <Icon icon="material-symbols-light:edit-square-outline-sharp" width="32" height="32"   />
+                <button on:click={edit} class={isEdit?"hidden":"text-blue-400 rounded-full hover:bg-slate-900 p-2"}   >
+                  <Icon icon="material-symbols-light:edit-square-outline-sharp" width="32" height="32"  />
                 </button>
 
               </div>
 
-              <div class="flex ">
-                <input class=" outline-none text-4xl truncate bg-black" {readonly} value="John Ipsum Dereee Dou">
+              <div class="flex">
+                <input class={isEdit? "hidden":"outline-none text-4xl truncate bg-black"} {readonly} value="{userJson.name}" >
               </div>
               
             </div>
 
-            <div>
+            <div class="space-y-4">
 
-                <div>
+              {#each Object.entries(userJson) as [index, value]}
+
                   <div class="flex flex-col">
-                    <div class="font-medium">
-                      field
-                    </div>
 
-                    <div class="font-light">
-                      <input class={isEdit? "p-2 outline-1 rounded-md bg-zinc-800":"decoration-none bg-black focus:none focus-none outline-none"} {readonly} type="text" value="value">
-                    </div>
+                      <div class="font-medium">
+                        {index}
+                      </div>
+
+                      {#if index == "role"}
+                      <div class="flex">
+                        <form>
+                            <select on:select={()=>{console.log(user)}} bind:value={userJson[index]} class="bg-black border rounded-md p-2 text-blue-300 outline-none" {disabled}>
+                                <option value="admin">admin</option>
+                                <option  value="moderator">moderator</option>
+                            </select>
+                        </form>
+                      </div>
+                      {:else}
+                      <div class="font-light">
+                        <input  bind:value={userJson[index]}  class={isEdit? "w-full p-2 outline-1 rounded-md bg-zinc-800" : "w-full decoration-none bg-black focus:none focus-none outline-none"} {readonly} type="text" >
+                      </div>
+                      {/if}
+                    
                   </div>
-                </div>
               
+                {/each}
+                
+
             </div>
 
 
 
-            <div class="py-7 flex items-center space-x-4">
+            <!-- <div class="py-7 flex items-center space-x-4">
               <h2 class="text-white">Role</h2>
               <div class="flex">
                   <form>
-                      <select class="bg-black border rounded-md p-2 text-blue-300">
+                      <select class="bg-black border rounded-md p-2 text-blue-300 outline-none" {disabled}>
                           <option value="admin">admin</option>
                           <option value="user">moderator</option>
                       </select>
                   </form>                
               </div>
-            </div>
+            </div> -->
 
 
             {#if isEdit}
+
             <div class="flex justify-around">
               <div class="flex justify-end">
-                <button on:click={()=>{isEdit=false}} class="bg-blue-400 p-2 rounded-md text-white">Cancel</button>
+                <button on:click={cancel} class="bg-red-400 p-2 rounded-md text-white">Cancel</button>
               </div>
                 <div class="flex justify-end">
                   <button on:click={save} class="bg-blue-400 p-2 rounded-md text-white">Save</button>
@@ -164,8 +209,6 @@
         </div>
 
        
-          
-
           
 
         

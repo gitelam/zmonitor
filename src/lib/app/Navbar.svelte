@@ -267,7 +267,7 @@
                 </a>
 
                 <!-- svelte-ignore a11y-missing-attribute -->
-                <button on:click={()=>go("/app/view_users")}>
+                <button on:click={()=>go("/auth/login")}>
                   <div class="flex item-list space-x-4 hover:bg-zinc-700 rounded-xl">
                     <div
                       class="flex body border-zinc-600 p-2 justify-center items-center h-full space-x-4"
