@@ -6,7 +6,7 @@
   import LinePlot from "../../../lib/charts/test/LinePlot.svelte";
   import * as d3 from "d3";
 
-  const user ={
+  let user ={
     "name": "John Ipsum Dereee Dou",
     "email": "johnipsumdereedou@gmail.com",
     "role": "admin",
@@ -39,6 +39,7 @@
 
   function save(){
     noEdit();
+    user = userJson;
     //send...
   }
 

@@ -13,6 +13,7 @@
 
   let times = [1, 2, 3, 4, 5, 6];
 
+
   //interval to make the number change every 2 seconds
   setInterval(() => {
     num = Math.floor(Math.random() * 100);
@@ -80,6 +81,7 @@
     // @ts-ignore
     modal.showModal();
   }
+
 </script>
 
 <Navbar currentPage={"machines"} />
@@ -196,7 +198,7 @@
             <h2 class="text-white">Alerts</h2>
             <div class=" flex">
               <button
-                on:click={() => openModal("dialog")}
+                on:click={() => openModal("create_alert_dialog")}
                 class="flex justify-center align-middle items-center text-blue-300 hover:text-blue-600 active:text-purple-500"
               >
                 <div class="text-md">create</div>
@@ -421,14 +423,14 @@
 </div>
 
 <dialog
-  id="dialog"
+  id="create_alert_dialog"
   class="text-white bg-zinc-900 rounded-md p-6 space-y-6 w-96"
 >
   <div class="flex justify-between items-center">
     <div class="flex flex-col text-xl">New alert</div>
 
     <button
-      onclick="dialog.close()"
+      onclick="create_alert_dialog.close()"
       class="hover:text-blue-500 text-blue-300 active:text-purple-500"
     >
       <Icon
@@ -456,8 +458,8 @@
       <div class="flex flex-col">
         <label for="cars">Choose metric</label>
         <select
-          id="cars"
-          name="cars"
+          id="metric"
+          name="metrics"
           class="bg-zinc-800 rounded-md outline-none p-2"
         >
           <option>RAM</option>
@@ -487,24 +489,24 @@
           name="cars"
           class="bg-zinc-800 rounded-md outline-none p-2"
         >
-          <option value="moreThan">RAM value > trigger</option>
-          <option value="lessThan">RAM value &lt trigger</option>
-          <option value="moreOrEqualsThan">RAM value >= trigger</option>
-          <option value="lessOrEqualsThan">RAM value &lt= trigger</option>
+          <option value="moreThan">value > trigger</option>
+          <option value="lessThan">value &lt trigger</option>
+          <option value="moreOrEqualsThan">value >= trigger</option>
+          <option value="lessOrEqualsThan">value &lt= trigger</option>
         </select>
       </div>
     </div>
 
     <div class=" space-y-4 mt-6">
       <button
-        onclick="dialog.close()"
+        onclick="create_alert_dialog.close()"
         class="w-full rounded-md bg-green-800 hover:bg-green-600 active:bg-green-900 p-2"
       >
         accept
       </button>
 
       <button
-        onclick="dialog.close()"
+        onclick="create_alert_dialog.close()"
         class="w-full rounded-md bg-red-800 hover:bg-red-600 active:bg-red-900 p-2"
       >
         cancel

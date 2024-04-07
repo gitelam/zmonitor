@@ -30,7 +30,7 @@
                 go to create ticket
             </a>
         </li>
-        <li>
+        <!-- <li>
             <a href="../app/TestAnto" class="hover:text-blue-300">
                 go to TestAnto
             </a>
@@ -39,6 +39,6 @@
             <a href="../auth/login" class="hover:text-blue-300">
                 go to login
             </a>
-        </li>
+        </li> -->
     </ul>
 </div>

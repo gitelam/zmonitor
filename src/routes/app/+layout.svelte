@@ -10,7 +10,7 @@
  
 </body>
 
+<Navbar currentPage = {"default"}/>
  
- <Navbar currentPage = {"default"}/>
  
- <slot />
+<slot />

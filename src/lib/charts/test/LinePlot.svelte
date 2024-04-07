@@ -24,10 +24,13 @@
   export let marginBottom = 20;
   export let marginLeft = 30;
 
+
+
+  export let data_name = "data_name";
   export let path_fill_color = "green";
   export let line_color = "green";
-
   export let y_up_domain = 5;
+ 
 
   /**
    * @type {any}
@@ -44,8 +47,7 @@
   );
 
   $: y = d3
-    .scaleLinear(d3.extent(data), [height - marginBottom, marginTop])
-    .domain([0, y_up_domain]);
+    .scaleLinear(d3.extent(data), [height - marginBottom, marginTop]);
 
   $: line = d3.line((/** @type {any} */ d, /** @type {any} */ i) => x(i), y);
 
@@ -87,11 +89,16 @@
   </svg>
 
   {#if type == "show_data"}
-    <div class="w-full flex flex-col">
-      <div class="font-semibold">Data transfer</div>
-      <div>
-        {data[data.length - 1]} MB/s
-      </div>
+    <div class="w-full flex flex-col mx-2 p-2">
+      <div class="font-semibold">{data_name}</div>
+        <div class="flex">
+          <div class="truncate w-16">
+            {data[data.length - 1]} 
+          </div>
+          <div>
+            MB/s
+          </div>
+        </div>
     </div>
   {/if}
 

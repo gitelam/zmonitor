@@ -1,4 +1,5 @@
 <script lang="js">
+  // @ts-nocheck
   import LinePlot from "../../../lib/charts/test/LinePlot.svelte";
   import * as d3 from "d3";
 
@@ -6,7 +7,7 @@
 
   //set interval for live chart
   setInterval(() => {
-    data = data.slice(-50).concat(Math.sin(Math.random() * 2));
+    data = data.slice(-25).concat(Math.sin(Math.random() * 2));
   }, 500);
 
   /**
@@ -117,6 +118,16 @@
       console.error(error);
     }
   };
+
+   /**
+   * @param {string} modalName
+   */
+   function openModal(modalName) {
+    const modal = document.getElementById(modalName);
+    // @ts-ignore
+    modal.showModal();
+  }
+
 </script>
 
 <Navbar currentPage={"dashboard"} />
@@ -189,10 +200,10 @@
         <div class="mx-6 pt-3">
           <div class="flex justify-between">
             <h2>System monitor</h2>
-            <button
+            <button on:click={() => openModal("manage_alerts_dialog")}
               class="text-blue-300 hover:text-blue-600 active:text-purple-500"
             >
-              view all
+              manage alerts
             </button>
           </div>
         </div>
@@ -200,14 +211,14 @@
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="flex flex-col h-full mt-4 mx-6 ">
           <div class="flex ">
-            <LinePlot {data} type="show_data"/>
-            <LinePlot {data} type="show_data"/>
-            <LinePlot {data} type="show_data"/>
+            <LinePlot {data} data_name="bytes send" line_color="cyan" path_fill_color="blue" type="show_data" y_up_domain={2}/>
+            <LinePlot {data} data_name="bytes received" line_color="yellow" path_fill_color="yellow" type="show_data" y_up_domain={2}/>
+            <LinePlot {data} data_name="bandwith in" line_color="red" path_fill_color="cyan" type="show_data" y_up_domain={2}/>
           </div>
           <div class="flex ">
-            <LinePlot {data} type="show_data"/>
-            <LinePlot {data} type="show_data" path_fill_color={"yellow"} />
-            <LinePlot {data} type="show_data"/>
+            <LinePlot {data} data_name="bandwidth out" line_color="lime" path_fill_color="green" type="show_data" y_up_domain={2}/>
+            <LinePlot {data} data_name="packages in" line_color="cyan" path_fill_color="red" type="show_data" y_up_domain={2}/>
+            <LinePlot {data} data_name="packages out" line_color="yellow" path_fill_color="purple" type="show_data" y_up_domain={2}/>
           </div>
         </div>
       </div>
@@ -340,3 +351,139 @@
     <!--here end system info and recent tickets-->
   </div>
 </div>
+
+
+<dialog id="manage_alerts_dialog" class="text-white bg-zinc-900 rounded-md p-6 space-y-2 ">
+
+
+  <div class="flex justify-between">
+    <div>
+      Create new alert
+    </div>
+    <button
+    onclick="manage_alerts_dialog.close()"
+    class="hover:text-blue-500 text-blue-300 active:text-purple-500"
+  >
+    <Icon
+      icon="material-symbols-light:cancel-outline"
+      width="32"
+      height="32"
+    />
+  </button>
+  </div>
+
+  <div class="flex space-x-8">
+
+
+    <div class="w-full ">
+      <div class="font-semibold">
+      </div>
+      <div class="flex flex-col space-y-4">
+        <div>
+          <div>
+            alert name
+            </div>
+            <input class="w-full bg-zinc-950 rounded-md px-2" type="number">
+        </div>
+
+        <div>
+          <div>
+            value
+            </div>
+            <select class="w-full bg-zinc-950 rounded-md px-2">
+              <option>bytes send</option>
+              <option>bytes received</option>
+              <option>bandwith in</option>
+              <option>bandwidth out</option>
+              <option>packages in</option>
+              <option>packages out</option>
+            </select>
+        </div>
+
+        <div>
+          <div>
+            trigger
+            </div>
+            <input class="w-full bg-zinc-950 rounded-md px-2" type="number">
+        </div>
+        
+        <div>
+          <div>
+            condition
+            </div>
+            <select
+            class="w-full bg-zinc-800 rounded-md outline-none p-2"
+          >
+            <option value="moreThan"> value > trigger</option>
+            <option value="lessThan"> value &lt trigger</option>
+            <option value="moreOrEqualsThan"> value >= trigger</option>
+            <option value="lessOrEqualsThan">value &lt= trigger</option>
+          </select>
+        </div>
+
+      </div>
+      
+      <div class="flex justify-between mt-8">
+        <div>
+          
+          <button
+          onclick="manage_alerts_dialog.close()"
+          class="w-full rounded-md bg-red-800 hover:bg-red-600 active:bg-red-900 p-2"
+        >
+          cancel
+        </button>
+        </div>
+        <div>
+        
+          <button
+        onclick="manage_alerts_dialog.close()"
+        class="w-full rounded-md bg-green-800 hover:bg-green-600 active:bg-green-900 p-2"
+      >
+        accept
+      </button>
+        
+        </div>
+      </div>
+    </div>
+
+   
+
+      <div class="w-full ">
+        
+        <div class="mb-2">
+        Current alerts
+
+        </div>
+        <div class="w-full  overflow-auto max-h-72 mr-24">
+      
+          {#each times as alert}
+              
+          <div class="flex items-center space-x-2">
+            <Icon
+                icon="material-symbols-light:warning-outline-rounded"
+                width="32"
+                height="32"
+              />
+              <div>
+                data warning
+                <div class="text-zinc-400">
+                  <div>
+                    trigger value: 20
+                  </div>
+                  <div>
+                    current value: 10
+                  </div>
+                </div>
+              </div>
+          </div>
+          {/each}
+        </div>
+      </div>
+
+
+
+  </div>
+ 
+
+
+</dialog>
